@@ -1,0 +1,16 @@
+{
+  "name": "thai-email-helper",
+  "version": "1.0.0",
+  "description": "Thai Email Helper - Automated email sending system",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=3000 --open=/index.html",
+    "start": "live-server --port=3000 --open=/index.html"
+  },
+  "keywords": ["email", "thai", "helper", "automation"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
