@@ -13,53 +13,160 @@
             <p>เครื่องมือช่วยส่งอีเมลภาษาไทยแบบมืออาชีพ</p>
         </div>
 
-        <div class="main-content">
-            <div class="form-group">
-                <label for="emailInput">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                    ส่วนท้ายอีเมล (คั่นด้วยเครื่องหมายจุลภาค)
-                </label>
-                <div class="email-input-container">
-                    <div class="email-prefix">normalshop</div>
-                    <input 
-                        type="text" 
-                        id="emailInput" 
-                        class="email-input" 
-                        placeholder="f1 f2 a9 a10"
-                    >
-                    <div class="email-suffix">@gmail.com</div>
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="email">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                ส่งอีเมล
+            </button>
+            <button class="tab-btn" data-tab="notes">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                </svg>
+                จดโน็ต
+            </button>
+        </div>
+
+        <!-- Email Tab -->
+        <div id="emailTab" class="tab-content active">
+            <div class="main-content">
+                <div class="form-group">
+                    <label for="emailInput">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        ส่วนท้ายอีเมล (คั่นด้วยเครื่องหมายจุลภาค)
+                    </label>
+                    <div class="email-input-container">
+                        <div class="email-prefix">normalshop</div>
+                        <input 
+                            type="text" 
+                            id="emailInput" 
+                            class="email-input" 
+                            placeholder="f1 f2 a9 a10"
+                        >
+                        <div class="email-suffix">@gmail.com</div>
+                    </div>
+                    <div class="input-hint">
+                        💡 เพียงพิมพ์ส่วนท้าย เช่น f1 f2 a9 หรือ a10 เท่านั้น (คั่นด้วยช่องว่าง)
+                    </div>
                 </div>
-                <div class="input-hint">
-                    💡 เพียงพิมพ์ส่วนท้าย เช่น f1 f2 a9 หรือ a10 เท่านั้น (คั่นด้วยช่องว่าง)
+
+                <div class="button-group">
+                    <button id="sendEmailBtn" class="btn btn-primary">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                        ส่งอีเมล
+                    </button>
+                    <button id="clearHistoryBtn" class="btn btn-secondary">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                        </svg>
+                        ล้างประวัติ
+                    </button>
+                </div>
+
+                <div class="history-section">
+                    <h3 class="history-title">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                        </svg>
+                        ประวัติส่วนท้ายที่ใช้งาน
+                    </h3>
+                    <div id="historyContainer" class="history-buttons">
+                        <div class="empty-history">ยังไม่มีประวัติการใช้งาน</div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="button-group">
-                <button id="sendEmailBtn" class="btn btn-primary">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                    </svg>
-                    ส่งอีเมล
-                </button>
-                <button id="clearHistoryBtn" class="btn btn-secondary">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-                    </svg>
-                    ล้างประวัติ
-                </button>
-            </div>
+        <!-- Notes Tab -->
+        <div id="notesTab" class="tab-content">
+            <div class="main-content">
+                <div class="notes-header">
+                    <h2>📝 จดโน็ตติดตามสถานะ</h2>
+                    <button id="addNoteBtn" class="btn btn-primary btn-small">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        เพิ่มรายการ
+                    </button>
+                </div>
 
-            <div class="history-section">
-                <h3 class="history-title">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
-                    </svg>
-                    ประวัติส่วนท้ายที่ใช้งาน
-                </h3>
-                <div id="historyContainer" class="history-buttons">
-                    <div class="empty-history">ยังไม่มีประวัติการใช้งาน</div>
+                <!-- Add Note Form -->
+                <div id="addNoteForm" class="add-note-form hidden">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="noteEmail">อีเมล</label>
+                            <input type="text" id="noteEmail" placeholder="normalshopf1@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="noteDate">วันที่สมัคร</label>
+                            <input type="date" id="noteDate">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="noteStatus">สถานะ</label>
+                            <select id="noteStatus">
+                                <option value="pending">⏳ รอผล</option>
+                                <option value="success">✅ สำเร็จ</option>
+                                <option value="failed">❌ ไม่สำเร็จ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="noteRemarks">หมายเหตุ</label>
+                            <input type="text" id="noteRemarks" placeholder="เพิ่มหมายเหตุ...">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button id="saveNoteBtn" class="btn btn-primary btn-small">บันทึก</button>
+                        <button id="cancelNoteBtn" class="btn btn-secondary btn-small">ยกเลิก</button>
+                    </div>
+                </div>
+
+                <!-- Notes Table -->
+                <div class="notes-table-container">
+                    <div class="table-responsive">
+                        <table id="notesTable" class="notes-table">
+                            <thead>
+                                <tr>
+                                    <th>อีเมล</th>
+                                    <th>วันที่สมัคร</th>
+                                    <th>สถานะ</th>
+                                    <th>หมายเหตุ</th>
+                                    <th>จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="notesTableBody">
+                                <tr class="empty-row">
+                                    <td colspan="5" class="empty-message">ยังไม่มีข้อมูล</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="notes-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalCount">0</div>
+                        <div class="stat-label">ทั้งหมด</div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-number" id="successCount">0</div>
+                        <div class="stat-label">สำเร็จ</div>
+                    </div>
+                    <div class="stat-card failed">
+                        <div class="stat-number" id="failedCount">0</div>
+                        <div class="stat-label">ไม่สำเร็จ</div>
+                    </div>
+                    <div class="stat-card pending">
+                        <div class="stat-number" id="pendingCount">0</div>
+                        <div class="stat-label">รอผล</div>
+                    </div>
                 </div>
             </div>
         </div>
