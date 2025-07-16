@@ -93,23 +93,57 @@
             font-size: 1.1rem;
         }
 
-        .email-input {
-            width: 100%;
-            padding: 15px 20px;
+        .email-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
             border: 2px solid #e1e5e9;
             border-radius: 12px;
-            font-size: 1rem;
             transition: all 0.3s ease;
-            background: #f8f9fa;
-            font-family: inherit;
+            overflow: hidden;
         }
 
-        .email-input:focus {
-            outline: none;
+        .email-input-container:focus-within {
             border-color: #4facfe;
             background: white;
             box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
             transform: translateY(-2px);
+        }
+
+        .email-prefix {
+            padding: 15px 10px 15px 20px;
+            color: #666;
+            font-size: 1rem;
+            background: rgba(79, 172, 254, 0.1);
+            border-right: 1px solid #e1e5e9;
+            white-space: nowrap;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 15px 10px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .email-suffix {
+            padding: 15px 20px 15px 10px;
+            color: #666;
+            font-size: 1rem;
+            background: rgba(79, 172, 254, 0.1);
+            border-left: 1px solid #e1e5e9;
+            white-space: nowrap;
+        }
+
+        .input-hint {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 8px;
+            font-style: italic;
         }
 
         .button-group {
@@ -261,6 +295,11 @@
             .history-buttons {
                 justify-content: center;
             }
+
+            .email-prefix, .email-suffix {
+                font-size: 0.9rem;
+                padding: 15px 8px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -278,6 +317,11 @@
 
             .main-content {
                 padding: 15px;
+            }
+
+            .email-prefix, .email-suffix {
+                font-size: 0.8rem;
+                padding: 15px 6px;
             }
         }
 
@@ -314,15 +358,21 @@
                     <svg class="icon" viewBox="0 0 24 24">
                         <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
-                    ที่อยู่อีเมล (คั่นด้วยเครื่องหมายจุลภาค)
+                    ส่วนท้ายอีเมล (คั่นด้วยเครื่องหมายจุลภาค)
                 </label>
-                <input 
-                    type="email" 
-                    id="emailInput" 
-                    class="email-input" 
-                    placeholder="example@email.com, another@email.com"
-                    multiple
-                >
+                <div class="email-input-container">
+                    <div class="email-prefix">normalshop</div>
+                    <input 
+                        type="text" 
+                        id="emailInput" 
+                        class="email-input" 
+                        placeholder="f1, f2, a9, a10"
+                    >
+                    <div class="email-suffix">@gmail.com</div>
+                </div>
+                <div class="input-hint">
+                    💡 เพียงพิมพ์ส่วนท้าย เช่น f1, f2, a9 หรือ a10 เท่านั้น
+                </div>
             </div>
 
             <div class="button-group">
@@ -345,7 +395,7 @@
                     <svg class="icon" viewBox="0 0 24 24">
                         <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
                     </svg>
-                    ประวัติอีเมลที่ใช้งาน
+                    ประวัติส่วนท้ายที่ใช้งาน
                 </h3>
                 <div id="historyContainer" class="history-buttons">
                     <div class="empty-history">ยังไม่มีประวัติการใช้งาน</div>
@@ -385,24 +435,24 @@
 
         // Load email history from localStorage
         function loadEmailHistory() {
-            const history = JSON.parse(localStorage.getItem('emailHistory') || '[]');
+            const history = JSON.parse(localStorage.getItem('emailSuffixHistory') || '[]');
             displayEmailHistory(history);
         }
 
-        // Save email to history
-        function saveEmailToHistory(emails) {
-            let history = JSON.parse(localStorage.getItem('emailHistory') || '[]');
+        // Save email suffix to history
+        function saveEmailSuffixToHistory(suffixes) {
+            let history = JSON.parse(localStorage.getItem('emailSuffixHistory') || '[]');
             
-            emails.forEach(email => {
-                email = email.trim();
-                if (email && !history.includes(email)) {
-                    history.unshift(email);
+            suffixes.forEach(suffix => {
+                suffix = suffix.trim();
+                if (suffix && !history.includes(suffix)) {
+                    history.unshift(suffix);
                 }
             });
 
-            // Keep only last 10 emails
-            history = history.slice(0, 10);
-            localStorage.setItem('emailHistory', JSON.stringify(history));
+            // Keep only last 15 suffixes
+            history = history.slice(0, 15);
+            localStorage.setItem('emailSuffixHistory', JSON.stringify(history));
             displayEmailHistory(history);
         }
 
@@ -415,12 +465,12 @@
                 return;
             }
 
-            history.forEach(email => {
+            history.forEach(suffix => {
                 const button = document.createElement('button');
                 button.className = 'history-btn fade-in';
-                button.textContent = email;
+                button.textContent = suffix;
                 button.onclick = () => {
-                    emailInput.value = email;
+                    emailInput.value = suffix;
                     emailInput.focus();
                     button.classList.add('pulse');
                     setTimeout(() => button.classList.remove('pulse'), 1000);
@@ -436,36 +486,57 @@
             return { subject: randomSubject, body: randomBody };
         }
 
+        // Convert suffixes to full email addresses
+        function convertToFullEmails(suffixes) {
+            return suffixes.map(suffix => `normalshop${suffix.trim()}@gmail.com`);
+        }
+
+        // Handle comma input to auto-add normalshop prefix
+        function handleCommaInput(event) {
+            if (event.key === ',') {
+                const currentValue = emailInput.value;
+                const parts = currentValue.split(',');
+                
+                // If the last part is empty after comma, we'll add normalshop prefix
+                setTimeout(() => {
+                    const newValue = emailInput.value;
+                    if (newValue.endsWith(',') || newValue.endsWith(', ')) {
+                        // Don't add anything, user will type the next suffix
+                    }
+                }, 10);
+            }
+        }
+
         // Send email function
         function sendEmail() {
-            const emailValue = emailInput.value.trim();
+            const suffixValue = emailInput.value.trim();
             
-            if (!emailValue) {
-                alert('กรุณาใส่ที่อยู่อีเมล');
+            if (!suffixValue) {
+                alert('กรุณาใส่ส่วนท้ายอีเมล');
                 emailInput.focus();
                 return;
             }
 
-            // Validate email format
-            const emails = emailValue.split(',').map(email => email.trim());
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            // Split by comma and clean up
+            const suffixes = suffixValue.split(',').map(s => s.trim()).filter(s => s);
             
-            for (let email of emails) {
-                if (!emailRegex.test(email)) {
-                    alert(`รูปแบบอีเมลไม่ถูกต้อง: ${email}`);
-                    emailInput.focus();
-                    return;
-                }
+            if (suffixes.length === 0) {
+                alert('กรุณาใส่ส่วนท้ายอีเมลที่ถูกต้อง');
+                emailInput.focus();
+                return;
             }
 
+            // Convert to full email addresses
+            const fullEmails = convertToFullEmails(suffixes);
+            
             // Get random template
             const template = getRandomEmailTemplate();
             
-            // Save to history
-            saveEmailToHistory(emails);
+            // Save suffixes to history
+            saveEmailSuffixToHistory(suffixes);
             
             // Create mailto link
-            const recipients = emails.join(',');
+            const recipients = fullEmails.join(',');
             const subject = encodeURIComponent(template.subject);
             const body = encodeURIComponent(template.body);
             const mailtoLink = `mailto:${recipients}?subject=${subject}&body=${body}`;
@@ -496,8 +567,8 @@
 
         // Clear history function
         function clearHistory() {
-            if (confirm('คุณต้องการล้างประวัติอีเมลทั้งหมดหรือไม่?')) {
-                localStorage.removeItem('emailHistory');
+            if (confirm('คุณต้องการล้างประวัติส่วนท้ายอีเมลทั้งหมดหรือไม่?')) {
+                localStorage.removeItem('emailSuffixHistory');
                 displayEmailHistory([]);
                 
                 // Visual feedback
@@ -514,13 +585,12 @@
         emailInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 sendEmail();
+            } else {
+                handleCommaInput(e);
             }
         });
 
-        // Load history on page load
-        document.addEventListener('DOMContentLoaded', loadEmailHistory);
-
-        // Add some interactive effects
+        // Add visual feedback for input
         emailInput.addEventListener('input', () => {
             if (emailInput.value.trim()) {
                 sendEmailBtn.style.transform = 'scale(1.02)';
@@ -528,6 +598,9 @@
                 sendEmailBtn.style.transform = 'scale(1)';
             }
         });
+
+        // Load history on page load
+        document.addEventListener('DOMContentLoaded', loadEmailHistory);
     </script>
 </body>
 </html>
